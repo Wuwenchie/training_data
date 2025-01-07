@@ -12,7 +12,7 @@ import matplotlib.cm as cm
 import h5py
 import pickle
 
-"""
+
 model = load_model("unet_lstm_nc.h5", custom_objects={'Functional': tf.keras.Model, "L2":tf.keras.regularizers.l2})
 
 file_path = "C:/Users/1/processed_data/test_data.nc"
@@ -63,7 +63,7 @@ print("future prediction shape:", future_predictions.shape)
 # 儲存成 .npy 文件
 np.save("long_term_predictions.npy", future_predictions)
 print("save lond_term_predictions.npy")
-"""
+
 
 future_predictions = np.load("C:/Users/1/processed_data/long_term_predictions.npy")
 print(future_predictions.shape)
@@ -89,30 +89,3 @@ future_predictions_da.to_netcdf(output_nc_path)
 
 print(f"Future predictions saved to {output_nc_path}")
 
-"""
-pre_1 = future_predictions[0,:,:,:,:,:]
-print("first sample of autogressive prediction shape:", pre_1.shape)
-"""
-
-"""
-predicted_sst = predicted_sst * (training_max-training_min) + training_min
-
-# 設定經度和緯度範圍
-lon2, lat2 = np.meshgrid(lon, lat)
-
-m = Basemap(projection='cyl',
-            llcrnrlat=-64,
-            urcrnrlat=62,
-            llcrnrlon=0,
-            urcrnrlon=360,
-            resolution='c')
-
-# 繪製地圖
-cx, cy = m(lon2, lat2)
-cs = plt.contourf(cx,cy,np.squeeze(predicted_sst[:,:]), np.arange(-3,33,1), extend='both', cmap=cm.jet)
-
-m.drawcoastlines()
-cbar = m.colorbar(cs, "bottom", pad="10%")
-cbar.set_label('Temperature ($^\circ$C)')
-plt.title(f'Predict SST')
-"""
