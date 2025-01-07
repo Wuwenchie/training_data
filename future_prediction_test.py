@@ -12,8 +12,6 @@ import matplotlib.cm as cm
 import h5py
 import pickle
 
-
-
 # 導入文件
 file_path = "C:/Users/1/processed_data/test_data.nc"
 file_path_mean = "C:/Users/1/processed_data/training_data_monthly_climatology.nc"
@@ -40,13 +38,9 @@ mean = mean.values
 training_min = mean.min()
 training_max = mean.max()
 
-
-
-
-
 plt.figure(figsize=(10, 6))
 
-
+# 第一張圖
 plt.subplot(2, 2, 1) 
 # 設定經度和緯度範圍
 lon2, lat2 = np.meshgrid(lon, lat)
@@ -75,9 +69,7 @@ cbar.set_label('Temperature (K)')
 cbar.set_label('Temperature ($^\circ$C)')
 plt.title(f'Actual SST')
 
-
-
-
+# 第二張圖
 plt.subplot(2, 2, 2)
 # 從 xarray.DataArray 轉為 NumPy 並增加批次維度
 pre_1 = np.squeeze(future_predictions)
@@ -99,13 +91,11 @@ cbar = m.colorbar(cs, "bottom", pad="10%")
 cbar.set_label('Temperature ($^\circ$C)')
 plt.title(f'Predict SST')
 
-
+# 第三張圖
 plt.subplot(2, 2, 3)
 difference = predicted_sst - actual_sst   
 
 difference_array = xr.DataArray(difference, dims=["latitude", "longitude"], coords={"latitude": lat, "longitude": lon})
-
-# cs = m.pcolormesh(cx,cy,np.squeeze(difference[:,:]), cmap='jet', vmin=-3, vmax=3, shading='auto')
 cs = plt.contourf(cx,cy,np.squeeze(difference[:,:]), np.arange(-3,3,0.1), extend='both', cmap=cm.jet)
 
 m.drawcoastlines()
@@ -113,8 +103,7 @@ cbar = m.colorbar(cs, "bottom", pad="10%")
 cbar.set_label('Temperature ($^\circ$C)')
 plt.title(f'Difference SST')
 
-
-
+# 第四張圖
 plt.subplot(2, 2, 4)
 
 climatology_array = xr.DataArray(mean, dims=["latitude", "longitude"], coords={"latitude": lat, "longitude": lon})
@@ -133,5 +122,3 @@ plt.tight_layout()
 plt.savefig(f"June 2017.png")
 
 plt.show()
-
-
