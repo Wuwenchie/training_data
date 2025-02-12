@@ -5,7 +5,7 @@ import time
 import netCDF4 as nc
 import pandas as pd
 
-"""
+
 download_folder = "./combined_lsm"
 years = range(1950, 2013 + 1)
 months = [f'{i:02d}' for i in range(1, 13)]  # 1月到12月
@@ -47,6 +47,7 @@ monthly_climatology = combined_data.groupby("time.month").mean(dim="time")
 monthly_climatology.to_netcdf("training_data_monthly_climatology.nc")
 print("已將training_data的每月平均氣候值儲存為 training_data_monthly_climatology.nc")
 
+
 """
 file_path_mean = "C:/Users/1/processed_data/training_data_monthly_climatology.nc"
 ds_mean = xr.open_dataset(file_path_mean)
@@ -61,7 +62,7 @@ lon_new = np.linspace(0, 360, 128)
 data_interp = data_avg.interp(latitude=lat_new, longitude=lon_new).fillna(0)
 # data_numpy = data_interp.values
 data_interp.to_netcdf("training_data_monthly_climatology.nc")
-
+"""
 
 
 
