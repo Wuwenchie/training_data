@@ -62,6 +62,13 @@ class EncoderLayer(nn.Module):
     x = self.ffn_norm(x)
     return x
 
+class DecoderLayer(nn.Module):
+  def __init__(self, ):
+    super().__init__()
+
+  def forward(self, )
+
+  
 class MutiHeadedAttention(nn.Module):
   def __init__(self, d_model, num_heads, dropout):
     super().__init__():
@@ -69,6 +76,22 @@ class MutiHeadedAttention(nn.Module):
     self.num_heads = num_heads
     self.dropout = dropout
     self.attn_output_size = self.d_model // self.num_heads
+    self.attentions = nn.ModuleList(
+      [
+        Selfattention(d_model, self.attn_output_size)
+        for _ in range(self.num_heads)
+      ],
+    )
+    self.output = nn.Linear(self.d_model, self.d_model)
+
+  def forward(self, q, k, r, mask):
+    x = torch.cat(
+      [
+        Layer() for layer in self.attentions
+      ], dim=-1
+    )
+    x = self.output(x)
+    return x
 
   
       
@@ -78,9 +101,5 @@ class MutiHeadedAttention(nn.Module):
 
   
 
-class DecoderLayer(nn.Module):
-  def __init__(self, ):
-    super().__init__()
 
-  def forward(self, )
   
